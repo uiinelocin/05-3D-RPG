@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,9 @@
 [ext_resource path="res://UI/Dialogue.gd" type="Script" id=8]
 [ext_resource path="res://UI/UI.gd" type="Script" id=9]
 [ext_resource path="res://Drone/Drone.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/TropicalContact.wav" type="AudioStream" id=11]
+[ext_resource path="res://Assets/explosion_sound.wav" type="AudioStream" id=12]
+[ext_resource path="res://Assets/shooting_sound.wav" type="AudioStream" id=13]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 1, 0, 0, 1 )
@@ -53,6 +56,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50 )
 mesh = SubResource( 2 )
 material/0 = null
 
+[node name="Shooting_sound" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource( 13 )
+
+[node name="Explosion_sound" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource( 12 )
+
 [node name="lowpoly_scene" parent="." instance=ExtResource( 3 )]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 
@@ -78,6 +87,8 @@ transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 10.55, 
 
 [node name="Drone" parent="Drone_container" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 100 )
+
+[node name="Explosion_container" type="Spatial" parent="."]
 
 [node name="NPC" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 0 )
@@ -155,6 +166,10 @@ anchor_bottom = 1.0
 margin_top = -20.0
 margin_bottom = 10.0
 bbcode_enabled = true
+
+[node name="Background_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+autoplay = true
 [connection signal="body_entered" from="NPC/Area" to="NPC" method="_on_Area_body_entered"]
 [connection signal="body_exited" from="NPC/Area" to="NPC" method="_on_Area_body_exited"]
 [connection signal="timeout" from="UI/Timer" to="UI" method="_on_Timer_timeout"]

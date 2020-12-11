@@ -43,7 +43,7 @@ func _physics_process(_delta):
 		if target != null and target.is_in_group("target"):
 			var explosion = Explosion.instance()
 			explosion.global_transform.origin = $Pivot/RayCast.get_collision_point()
-			get_node("/root/Game/Explosion_container")
+			get_node("/root/Game/Explosion_container").add_child(explosion)
 			target.die()
 			$Explosion_sound.play()
 	if global_transform.origin.y < -15:
